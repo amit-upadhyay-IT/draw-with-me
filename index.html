@@ -15,7 +15,10 @@ body {
 <div id = "sketch">
     <canvas id="paint"></canvas>
 </div>
+<script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
+var socket = io();
+
 var canvas = document.querySelector('#paint');
 var ctx = canvas.getContext('2d');
 
@@ -59,12 +62,24 @@ ctx.strokeStyle = 'blue';
     }, false);
 
     var onPaint = function() {
+
         ctx.beginPath();
         ctx.moveTo(last_mouse.x, last_mouse.y);
         ctx.lineTo(mouse.x, mouse.y);
         ctx.closePath();
         ctx.stroke();
+
+	socket.emit('draw', {
+		startx: last_mouse.x,
+		starty: last_mouse.y,
+		endx: mouse.x,
+		endy: mouse.y
+	});
     };
+
+	socket.on('draw', function(data){
+	  onPaint_repo(data.startx, data.starty, data.endx, data.endy);
+	});
 
     
     var onPaint_repo = function(startx, starty, endx, endy) {
