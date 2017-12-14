@@ -18,89 +18,72 @@ body {
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 var socket = io();
-
 var canvas = document.querySelector('#paint');
 var ctx = canvas.getContext('2d');
-
 var sketch = document.querySelector('#sketch');
 var sketch_style = getComputedStyle(sketch);
 canvas.width = parseInt(sketch_style.getPropertyValue('width'));
 canvas.height = parseInt(sketch_style.getPropertyValue('height'));
 
-    var mouse = {
-        x: 0,
-        y: 0
-    };
+var mouse = {
+    x: 0,
+    y: 0
+};
 
-    var last_mouse = {
-        x: 0,
-        y: 0
-    };
+var last_mouse = {
+    x: 0,
+    y: 0
+};
 
-    /* mouse capturing work*/
-    canvas.addEventListener('mousemove', function(e) {
-        last_mouse.x = mouse.x;
-        last_mouse.y = mouse.y;
+/* mouse capturing work*/
+canvas.addEventListener('mousemove', function(e) {
+    last_mouse.x = mouse.x;
+    last_mouse.y = mouse.y;
 
-        mouse.x = e.pageX - this.offsetLeft;
-        mouse.y = e.pageY - this.offsetTop;
-    }, false);
+    mouse.x = e.pageX - this.offsetLeft;
+    mouse.y = e.pageY - this.offsetTop;
+}, false);
 
 
-    /*drawing on paint app*/
+/*drawing on paint app*/
 ctx.lineWidth = 5;
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
 ctx.strokeStyle = 'blue';
 
-    canvas.addEventListener('mousedown', function(e) {
-        canvas.addEventListener('mousemove', onPaint, false);
-    }, false);
+canvas.addEventListener('mousedown', function(e) {
+    canvas.addEventListener('mousemove', onPaint, false);
+}, false);
 
-    canvas.addEventListener('mouseup', function() {
-        canvas.removeEventListener('mousemove', onPaint, false);
-    }, false);
+canvas.addEventListener('mouseup', function() {
+    canvas.removeEventListener('mousemove', onPaint, false);
+}, false);
 
-    var onPaint = function() {
+var onPaint = function() {
 
-        ctx.beginPath();
-        ctx.moveTo(last_mouse.x, last_mouse.y);
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.closePath();
-        ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(last_mouse.x, last_mouse.y);
+    ctx.lineTo(mouse.x, mouse.y);
+    ctx.closePath();
+    ctx.stroke();
 
-	socket.emit('draw', {
-		startx: last_mouse.x,
-		starty: last_mouse.y,
-		endx: mouse.x,
-		endy: mouse.y
-	});
-    };
+    socket.emit('draw', {
+        startx: last_mouse.x,
+        starty: last_mouse.y,
+        endx: mouse.x,
+        endy: mouse.y
+    });
+};
 
-	socket.on('draw', function(data){
-	  onPaint_repo(data.startx, data.starty, data.endx, data.endy);
-	});
+socket.on('draw', function(data){
+  onPaint_repo(data.startx, data.starty, data.endx, data.endy);
+});
 
-    
-    var onPaint_repo = function(startx, starty, endx, endy) {
-        ctx.beginPath();
-        ctx.moveTo(startx, starty);
-        ctx.lineTo(endx, endy);
-        ctx.closePath();
-        ctx.stroke();
-    };
-    
-
+var onPaint_repo = function(startx, starty, endx, endy) {
+    ctx.beginPath();
+    ctx.moveTo(startx, starty);
+    ctx.lineTo(endx, endy);
+    ctx.closePath();
+    ctx.stroke();
+};
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
