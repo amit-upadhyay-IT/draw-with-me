@@ -1,0 +1,47 @@
+{
+  "name": "draw-with-me",
+  "version": "0.0.0",
+  "description": "socket based app for white board sharing",
+  "homepage": "github.com/amit-upadhyay-it",
+  "author": {
+    "name": "Amit Upadhyay",
+    "email": "developerupadhyay@gmail.com",
+    "url": "https://github.com/amit-upadhyay-IT"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    "socket",
+    "drawing",
+    "white board",
+    "group drawing",
+    "sharing screen"
+  ],
+  "devDependencies": {
+    "coveralls": "^2.13.1",
+    "nsp": "^2.6.3",
+    "eslint": "^4.1.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "jest": "^21.0.0",
+    "jest-cli": "^21.0.0"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint . --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "jest": true,
+      "node": true
+    }
+  },
+  "repository": "amit-upadhyay-it/draw-with-me",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "license": "Apache-2.0"
+}
