@@ -1,5 +1,6 @@
 var app = require('express')();
 var http = require('http').Server(app);
+
 var io = require('socket.io')(http);
 
 app.get('/', function (req, res) {
@@ -7,6 +8,7 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function(socket) {
+
     console.log('a user connected');
 
     socket.on('draw', function(msg) {
@@ -17,8 +19,10 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function () {
         console.log('a user disconnected');
     });
+
 });
 
 http.listen(3000, function () {
     console.log('listening on *:3000');
 });
+
