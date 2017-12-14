@@ -3,6 +3,11 @@
 
 ## Installation and Usage
 
+- Visit : [https://parallel-drawing.herokuapp.com](https://parallel-drawing.herokuapp.com/) to see demo, share the [link](https://parallel-drawing.herokuapp.com/) with your friends and enjoy the app.
+
+To install locally follow these steps:
+
+
 **Step 1**:
 ```sh
 $ git clone https://github.com/amit-upadhyay-IT/draw-with-me.git
